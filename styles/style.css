@@ -1,0 +1,43 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  * {
+    margin: 0;
+  }
+  
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+
+
+  .container {
+    display: grid;
+    margin: 1% auto;
+    width: 600px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4 , 1fr);
+    gap: 8px;
+  }
+
+  .card img{
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .card.hidden img{
+    cursor: pointer;
+  }
+  .card.hidden img:hover{
+    transform: scale(1.05);
+    border: 1px solid black;
+  }
