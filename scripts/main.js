@@ -1,18 +1,52 @@
 const container = document.querySelector('.container');
-const cards = document.querySelectorAll('.card img');
-const QUESTION_CARD_IMG = 'question.png';
+const cards = document.querySelectorAll('.card');
 const SRC_IMG = './cards/';
 
+let firstCard = null;
+let secondCard = null;
 
-cards.forEach(eachCard => {
-    eachCard.setAttribute('draggable', false);
+document.querySelectorAll('.card-item').forEach(e => e.setAttribute('draggable', false));
 
-    eachCard.addEventListener('click', e => {
+container.addEventListener('click', e => {
+    const card = e.target.offsetParent;
+
+    if(canFlip(card)) return
+
+    if(!firstCard) {
+        firstCard = card;
         
-        // e.target.src =  `${SRC_IMG}${rnd}.jpg`;
-        console.log(e.target)
-    });
+        flipCard(firstCard);
+        console.log(firstCard)
+    } else if(!secondCard) {
+        secondCard = card;
+        
+        flipCard(secondCard);
+
+        if(!isMatch()) {
+            return
+        }
+
+        console.log('mathced')
+        firstCard = null;
+        secondCard = null;
+    }
 });
+
+function canFlip(card) {
+    return card.className.includes('visible');
+}
+
+function flipCard(card) {
+    card.classList.add('visible');
+}
+
+function hideCard(card) {
+    card.classList.remove('visible');
+}
+
+function isMatch() {
+    return firstCard.dataset.value == secondCard.dataset.value;
+}
 
 function randomizeCard() {
     const set = new Set();
