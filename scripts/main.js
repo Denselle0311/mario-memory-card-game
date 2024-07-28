@@ -15,18 +15,34 @@ cards.forEach(eachCard => {
 });
 
 function randomizeCard() {
-    
-    const colCards =  container.children;
-    for(let i = 0; i < colCards.length; i++) {
-        const rowCards = colCards[i].children;
-        
-        for(let j = 0; j < rowCards.length; j++) {
-            const rnd = Math.floor(Math.random() * 16) + 1;
-            const card = rowCards[j].children[0];
-            card.src = `${SRC_IMG}${rnd}.jpg`;
-            console.log(card)
+    const set = new Set();
+    for(let i = 0; i < cards.length; i+=2) {
+        let rnd = Math.floor(Math.random() * 16) + 1;
+
+        while(set.has(rnd)) {
+            rnd = Math.floor(Math.random() * 16) + 1;
         }
+        set.add(rnd);
+
+        cards[i].querySelector('.front-card').src = `${SRC_IMG}${rnd}.jpg`;
+        cards[i+1].querySelector('.front-card').src = `${SRC_IMG}${rnd}.jpg`;
+
+        cards[i].dataset.value = rnd;
+        cards[i+1].dataset.value = rnd;
+    }
+    shuffle();
+    shuffle();
+}
+
+function shuffle() {
+    const end = cards.length-1;
+    for(let i = end; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i+1));
+        
+        cards[j].style.order = i;
+        cards[i].style.order = j;
     }
 }
 
-randomizeCard();
+
+document.addEventListener('DOMContentLoaded', randomizeCard);
