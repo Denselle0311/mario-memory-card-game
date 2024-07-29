@@ -10,7 +10,7 @@ document.querySelectorAll('.card-item').forEach(e => e.setAttribute('draggable',
 container.addEventListener('click', e => {
     const card = e.target.offsetParent;
 
-    if(canFlip(card)) return
+    if(isFlipped(card)) return
 
     if(!firstCard) {
         firstCard = card;
@@ -22,17 +22,20 @@ container.addEventListener('click', e => {
         
         flipCard(secondCard);
 
-        if(!isMatch()) {
-            return
-        }
+        setTimeout(() => {
+            if(!isMatch()) {
+                hideCard(firstCard);
+                hideCard(secondCard);
 
-        console.log('mathced')
-        firstCard = null;
-        secondCard = null;
+            }
+            firstCard = null;
+            secondCard = null;
+            console.log('mathced')
+        }, 400);
     }
 });
 
-function canFlip(card) {
+function isFlipped(card) {
     return card.className.includes('visible');
 }
 
