@@ -16,7 +16,7 @@ container.addEventListener('click', e => {
         firstCard = card;
         
         flipCard(firstCard);
-        console.log(firstCard)
+
     } else if(!secondCard) {
         secondCard = card;
         
@@ -26,10 +26,10 @@ container.addEventListener('click', e => {
             if(!isMatch()) {
                 hideCard(firstCard);
                 hideCard(secondCard);
-
             }
             firstCard = null;
             secondCard = null;
+            
             console.log('mathced')
         }, 400);
     }
